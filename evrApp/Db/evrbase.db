@@ -67,10 +67,10 @@ record(bi, "$(P)Link-Sts") {
   field(FLNK, "$(P)Cnt:RxErr-I")
 }
 
-record(longin, "$(P)Dbus-I") {
+record(longin, "$(P)DBus-I") {
   field(DTYP, "Obj Prop uint16")
-  field(DESC, "Read the Dbus status")
-  field(INP , "@OBJ=$(OBJ), PROP=Dbus Status")
+  field(DESC, "Read the DBus status")
+  field(INP , "@OBJ=$(OBJ), PROP=DBus Status")
   field(SCAN, ".1 second")
 }
 
