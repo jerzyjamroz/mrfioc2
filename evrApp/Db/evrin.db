@@ -4,6 +4,7 @@
 #  IN = record name prefix
 #  OBJ = devObj name
 #  DESC = Physical label found on output jack
+#  STENA = Enable polling of the input state
 
 record(bo, "$(IN)Lvl-Sel") {
   field( DTYP, "Obj Prop bool")
@@ -23,7 +24,7 @@ record(bi, "$(IN)State-I") {
   field( PINI, "YES")
   field( ZNAM, "Low")
   field( ONAM, "High")
-  $(ENA=#)field( SCAN, ".1 second")
+  $(STENA=#)field( SCAN, ".1 second")
 }
 
 record(bo, "$(IN)Edge-Sel") {
