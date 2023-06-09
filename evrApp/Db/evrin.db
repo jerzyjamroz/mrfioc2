@@ -23,7 +23,7 @@ record(bi, "$(IN)State-I") {
   field( PINI, "YES")
   field( ZNAM, "Low")
   field( ONAM, "High")
-  field( SCAN, ".1 second")
+  info( autosaveFields_pass0, "SCAN")
 }
 
 record(bo, "$(IN)Edge-Sel") {
