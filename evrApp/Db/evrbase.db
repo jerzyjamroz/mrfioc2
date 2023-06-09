@@ -4,6 +4,7 @@
 #  P = record name prefix
 #  OBJ = devObj name
 #  EVNT1HZ = DB event number for the 1 second tick
+#  DBUSENA = Enable DBus polling
 
 # Master enable for the EVR. If not set then very little will happen.
 #
@@ -71,7 +72,7 @@ record(longin, "$(P)DBus-I") {
   field(DTYP, "Obj Prop uint16")
   field(DESC, "Read the DBus state")
   field(INP , "@OBJ=$(OBJ), PROP=DBus State")
-  $(ENA=#)field(SCAN, ".1 second")
+  $(DBUSENA=#)field(SCAN, ".1 second")
 }
 
 # The number of event link errors which have occurred.
