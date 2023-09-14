@@ -20,6 +20,12 @@ on:
       - 'documentation/**'
       - 'python/**'
       - '**/*.md'
+  workflow_dispatch:
+    paths-ignore:
+      - 'mrmShared/linux/**'
+      - 'documentation/**'
+      - 'python/**'
+      - '**/*.md'
 
 env:
     SETUP_PATH: .ci-local:.ci
