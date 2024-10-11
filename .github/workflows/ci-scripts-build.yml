@@ -40,6 +40,7 @@ jobs:
       CI_CROSS_TARGETS: ${{ matrix.cross }}
       EXTRA: ${{ matrix.extra }}
       TEST: ${{ matrix.test }}
+      VV: 1
     strategy:
       fail-fast: false
       matrix:
