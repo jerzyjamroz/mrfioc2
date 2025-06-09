@@ -1269,10 +1269,15 @@ try {
 }
 }
 
+void myCustomHandler(const char* name)
+{
+    errlogPrintf(">>>>> HOTSWAP HOOK TRIGGERED for device: %s <<<<<\n", name);
+}
 
 void mrmEvrResetControl(void)
 {
 printf("===============1==============================\n");
+devPCIonHotSwapHook = myCustomHandler;
 try {
     mrf::Object *obj = mrf::Object::getObject("EVR");
     if (!obj)
