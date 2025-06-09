@@ -37,6 +37,8 @@ epicsShareExtern int evrmrmVerb;
 void epicsShareFunc
 mrmEvrSetupPCI(const char* id, const char* pcispec, const char* mtca_evr_model);
 void epicsShareFunc
+mrmEvrResetControl(void);
+void epicsShareFunc
 mrmEvrSetupVME(const char* id,int slot,int base,int level, int vector);
 
 void epicsShareFunc

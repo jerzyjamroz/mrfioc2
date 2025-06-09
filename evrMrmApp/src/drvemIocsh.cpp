@@ -67,6 +67,13 @@ static void mrmEvrSetupPCICallFunc(const iocshArgBuf *args)
     mrmEvrSetupPCI(args[0].sval,args[1].sval,args[2].sval);
 }
 
+static const iocshFuncDef mrmEvrResetControlFuncDef =
+    {"mrmEvrResetControl",0};
+static void mrmEvrResetControlCallFunc(const iocshArgBuf *args)
+{
+    mrmEvrResetControl();
+}
+
 static const iocshArg mrmEvrSetupVMEArg0 = { "name",iocshArgString};
 static const iocshArg mrmEvrSetupVMEArg1 = { "Bus number",iocshArgInt};
 static const iocshArg mrmEvrSetupVMEArg2 = { "A32 base address",iocshArgInt};
@@ -124,6 +131,7 @@ void mrmsetupreg()
 {
     initHookRegister(&mrmEvrInithooks);
     iocshRegister(&mrmEvrSetupPCIFuncDef,mrmEvrSetupPCICallFunc);
+    iocshRegister(&mrmEvrResetControlFuncDef,mrmEvrResetControlCallFunc);
     iocshRegister(&mrmEvrSetupVMEFuncDef,mrmEvrSetupVMECallFunc);
     iocshRegister(&mrmEvrDumpMapFuncDef,mrmEvrDumpMapCallFunc);
     iocshRegister(&mrmEvrForwardFuncDef,mrmEvrForwardCallFunc);

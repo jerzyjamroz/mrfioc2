@@ -1268,3 +1268,31 @@ try {
     printf("Error: %s\n",e.what());
 }
 }
+
+
+void mrmEvrResetControl(void)
+{
+printf("===============1==============================\n");
+try {
+    mrf::Object *obj = mrf::Object::getObject("EVR");
+    if (!obj)
+        throw std::runtime_error("Object 'EVR' not found");
+
+    EVRMRM *card = dynamic_cast<EVRMRM*>(obj);
+    if (!card)
+        throw std::runtime_error("Object is not an EVR");
+
+    // Właściwa operacja resetująca
+    //epicsUInt32 val = BE_READ32(card->base, Control);
+    //val |= 0x02000000; // set bit 25
+    //BE_WRITE32(card->base, Control, val);
+
+    NAT_WRITE32(card->base, Control, 0);
+    BE_WRITE32(card->base, Control, 0x02000000);
+    NAT_WRITE32(card->base, IRQEnable, 1);
+    printf("EVR 'EVR' Control register reset to 0x02000000 (byte swap enabled)\n");
+
+} catch (std::exception& e) {
+    printf("Error in mrmEvrResetControl(): %s\n", e.what());
+}
+}
