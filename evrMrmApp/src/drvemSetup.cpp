@@ -1269,35 +1269,43 @@ try {
 }
 }
 
-void myCustomHandler(const char* name)
-{
-    errlogPrintf(">>>>> HOTSWAP HOOK TRIGGERED for device: %s <<<<<\n", name);
+// Struktura zgodna z devLibPCIOSD.c
+struct osdPCIDevice {
+    epicsPCIDevice dev;
+    volatile void *base[6];
+    epicsUInt32 offset[6], len[6];
+    volatile void *erom;
+    epicsUInt32 eromlen;
+    epicsUInt32 displayBAR[6], displayErom;
+    int fd, cfd, rfd[6], cmode;
+    epicsMutexId devLock;
+    void (*onHotSwapHook)(struct osdPCIDevice*);
+    ELLNODE node;
+    ELLLIST isrs;
+};
+
+void myCustomHandler(struct osdPCIDevice* osd) {
+    errlogPrintf(">>>>> HOTSWAP HOOK TRIGGERED for device: %s <<<<<\n", osd->dev.slot);
 }
 
-void mrmEvrResetControl(void)
-{
-printf("===============1==============================\n");
-devPCIonHotSwapHook = myCustomHandler;
-try {
-    mrf::Object *obj = mrf::Object::getObject("EVR");
-    if (!obj)
-        throw std::runtime_error("Object 'EVR' not found");
+void mrmEvrResetControl(void) {
+    printf("=============== HOTSWAP SETUP ===============\n");
+    try {
+        EVRMRM* card = dynamic_cast<EVRMRM*>(mrf::Object::getObject("EVR"));
+        if (!card) throw std::runtime_error("EVR object not found");
 
-    EVRMRM *card = dynamic_cast<EVRMRM*>(obj);
-    if (!card)
-        throw std::runtime_error("Object is not an EVR");
+        osdPCIDevice* osd = reinterpret_cast<osdPCIDevice*>(const_cast<void*>(card->isrLinuxPvt));
+        if (!osd) throw std::runtime_error("PCI device not found");
 
-    // Właściwa operacja resetująca
-    //epicsUInt32 val = BE_READ32(card->base, Control);
-    //val |= 0x02000000; // set bit 25
-    //BE_WRITE32(card->base, Control, val);
+        osd->onHotSwapHook = myCustomHandler;
+        errlogPrintf("Hook assigned to device %s\n", osd->dev.slot);
 
-    NAT_WRITE32(card->base, Control, 0);
-    BE_WRITE32(card->base, Control, 0x02000000);
-    NAT_WRITE32(card->base, IRQEnable, 1);
-    printf("EVR 'EVR' Control register reset to 0x02000000 (byte swap enabled)\n");
+        NAT_WRITE32(card->base, Control, 0);
+        BE_WRITE32(card->base, Control, 0x02000000);
+        NAT_WRITE32(card->base, IRQEnable, 1);
 
-} catch (std::exception& e) {
-    printf("Error in mrmEvrResetControl(): %s\n", e.what());
-}
+        printf("EVR control reset complete\n");
+    } catch (const std::exception& e) {
+        printf("Error: %s\n", e.what());
+    }
 }
