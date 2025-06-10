@@ -1269,20 +1269,7 @@ try {
 }
 }
 
-// Struktura zgodna z devLibPCIOSD.c
-struct osdPCIDevice {
-    epicsPCIDevice dev;
-    volatile void *base[6];
-    epicsUInt32 offset[6], len[6];
-    volatile void *erom;
-    epicsUInt32 eromlen;
-    epicsUInt32 displayBAR[6], displayErom;
-    int fd, cfd, rfd[6], cmode;
-    epicsMutexId devLock;
-    void (*onHotSwapHook)(struct osdPCIDevice*);
-    ELLNODE node;
-    ELLLIST isrs;
-};
+#include "os/Linux/devLibPCIOSD.h"
 
 void myCustomHandler(struct osdPCIDevice* osd) {
     errlogPrintf(">>>>> HOTSWAP HOOK TRIGGERED for device: %s <<<<<\n", osd->dev.slot);
