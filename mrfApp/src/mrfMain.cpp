@@ -14,22 +14,22 @@
 #include <csignal>
 
 // Signal handler function
-void handle_sigterm(int signum)
-{
+// void handle_sigterm(int signum)
+// {
 
-    iocshCmd("dbpf VAN:EVR-1:DCEna-Sel Disable");
-    iocshCmd("dbpf");
-    iocshCmd("date");
-    printf("&&&&&&&&& mrfMain.cpp SIGTERM &&&&&&&&&&&\n");
-    // Optionally, exit the program
-    // exit(0);
-}
+//     iocshCmd("dbpf VAN:EVR-1:DCEna-Sel Disable");
+//     iocshCmd("dbpf");
+//     iocshCmd("date");
+//     printf("&&&&&&&&& mrfMain.cpp SIGTERM &&&&&&&&&&&\n");
+//     // Optionally, exit the program
+//     // exit(0);
+// }
 
 int main(int argc, char *argv[])
 {
     printf("---------------------!!! mrfMain.cpp !!!---------------------\n");
     // Register the signal handler for SIGTERM
-    std::signal(SIGTERM, handle_sigterm);
+    //std::signal(SIGTERM, handle_sigterm);
     if (argc >= 2)
     {
         iocsh(argv[1]);

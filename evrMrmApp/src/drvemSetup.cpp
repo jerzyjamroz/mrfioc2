@@ -968,6 +968,7 @@ static
 void
 evrShutdown(void*)
 {
+    printf("=========== evrShutdown ==========\n");
     mrf::Object::visitObjects(&disableIRQ,0);
 }
 
@@ -977,6 +978,7 @@ void mrmEvrInithooks(initHookState state)
     switch(state)
     {
     case initHookAfterInterruptAccept:
+        printf("=========== initHookAfterInterruptAccept ==========\n");
         // Register hook to disable interrupts on IOC shutdown
         epicsAtExit(&evrShutdown, NULL);
         // First enable interrupts for each EVR
