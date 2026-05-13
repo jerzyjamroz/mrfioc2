@@ -199,9 +199,17 @@ record(longin, "$(P)DCStatus8-I") {
 }
 
 record(longin, "$(P)ID-I") {
+  field(DESC, "Timing Node Topology ID")
   field(DTYP, "Obj Prop uint32")
   field(INP, "@OBJ=$(OBJ), PROP=TopoID")
-  field(SCAN, "1 second")
+  field(SCAN, "10 second")
+}
+
+record(longin, "$(P)RxEnable-I") {
+  field(DESC, "Rx Enable Register for Downstream Ports")
+  field(DTYP, "Obj Prop uint32")
+  field(INP, "@OBJ=$(OBJ), PROP=RxEnable")
+  field(SCAN, "10 second")
 }
 
 # Delay compensation at the EVM level

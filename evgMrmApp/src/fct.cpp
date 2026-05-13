@@ -12,6 +12,7 @@
 
 #define U32_Status 0
 #define U32_Control 4
+#define U32_RxEnable 0x8
 #define U32_UpDCValue 0x10
 #define U32_FIFODCValue 0x14
 #define U32_IntDCValue 0x18
@@ -96,6 +97,11 @@ epicsUInt32 FCT::topoId() const
     return READ32(base, TOPID);
 }
 
+epicsUInt32 FCT::getRxEnable() const
+{
+    return READ32(base, RxEnable);
+}
+
 double FCT::dcPortN(unsigned port) const
 {
     double period=1e3/evg->getFrequency(); // in nanoseconds
@@ -126,6 +132,7 @@ void FCT::setTxShutter(epicsUInt32 ports) {
 
 OBJECT_BEGIN(FCT)
     OBJECT_PROP1("Status", &FCT::statusRaw);
+    OBJECT_PROP1("RxEnable", &FCT::getRxEnable);
     OBJECT_PROP1("DCUpstream", &FCT::dcUpstream);
     OBJECT_PROP1("DCFIFO", &FCT::dcFIFO);
     OBJECT_PROP1("DCInternal", &FCT::dcInternal);

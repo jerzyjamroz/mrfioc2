@@ -38,6 +38,7 @@ public:
     void setDcUpTarget(double target);
 
     epicsUInt32 topoId() const;
+    epicsUInt32 getRxEnable() const;
 
     double dcPortN(unsigned port) const;
     epicsUInt32 dcPortNStatus(unsigned port) const;
