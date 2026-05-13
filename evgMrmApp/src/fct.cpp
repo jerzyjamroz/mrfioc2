@@ -101,6 +101,10 @@ epicsUInt32 FCT::getRxEnable() const
 {
     return READ32(base, RxEnable);
 }
+void FCT::setRxEnable(epicsUInt32 ports)
+{
+    WRITE32(base, RxEnable, ports);
+}
 
 double FCT::dcPortN(unsigned port) const
 {
@@ -132,7 +136,7 @@ void FCT::setTxShutter(epicsUInt32 ports) {
 
 OBJECT_BEGIN(FCT)
     OBJECT_PROP1("Status", &FCT::statusRaw);
-    OBJECT_PROP1("RxEnable", &FCT::getRxEnable);
+    OBJECT_PROP2("RxEnable", &FCT::getRxEnable , &FCT::setRxEnable);
     OBJECT_PROP1("DCUpstream", &FCT::dcUpstream);
     OBJECT_PROP1("DCFIFO", &FCT::dcFIFO);
     OBJECT_PROP1("DCInternal", &FCT::dcInternal);

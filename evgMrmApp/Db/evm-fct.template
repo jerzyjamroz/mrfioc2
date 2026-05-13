@@ -205,11 +205,25 @@ record(longin, "$(P)ID-I") {
   field(SCAN, "10 second")
 }
 
-record(longin, "$(P)RxEnable-I") {
+record(mbboDirect, "$(P)RxEnable-SP")
+{
+  field(DESC, "Rx Enable Register for Downstream Ports")
+  field(ASG,  "$(ASGPROTECTED=protected)")
+  field(DTYP, "Obj Prop uint32")
+  field(OUT,  "@OBJ=$(OBJ), PROP=RxEnable")
+  field(PINI, "RUN")
+  field(RVAL,  "0x7F")
+  field(FLNK, "$(P)RxEnable-RB")
+  info(autosaveFields_pass0, "RVAL")
+}
+record(mbbiDirect, "$(P)RxEnable-RB")
+{
   field(DESC, "Rx Enable Register for Downstream Ports")
   field(DTYP, "Obj Prop uint32")
-  field(INP, "@OBJ=$(OBJ), PROP=RxEnable")
-  field(SCAN, "10 second")
+  field(INP,  "@OBJ=$(OBJ), PROP=RxEnable")
+  field(VAL,  "0")
+  field(UDF,  "0")
+  field(DISP, "1")
 }
 
 # Delay compensation at the EVM level
