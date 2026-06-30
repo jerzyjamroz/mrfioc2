@@ -1466,6 +1466,12 @@ EVRMRM::drain_fifo()
                 // callbacks finished.  Un-map event until complete
                 evt.again=true;
                 specialSetMap(code, ActionFIFOSave, false);
+
+                std::cout << "FIFO sw overrate: eventCode=" << code
+                          << " waitingfor=" << evt.waitingfor
+                          << " count_FIFO_sw_overrate=" << count_FIFO_sw_overrate
+                          << std::endl;
+
                 count_FIFO_sw_overrate++;
             } else {
                 // needs to be queued
