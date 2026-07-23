@@ -38,12 +38,14 @@ FCT::FCT(evgMrm *evg, const std::string& id, volatile epicsUInt8* const base)
 
 FCT::~FCT() {}
 
-epicsUInt16 FCT::statusRaw() const
+epicsUInt32 FCT::statusRaw() const
 {
-    epicsUInt32 cur = READ32(base, Status);
-    cur &= 0xff;
-    WRITE32(base, Control, cur); // clear VIO latches
-    return ~cur; // invert to get 1==Ok
+    const epicsUInt32 status = READ32(base, Status);
+    const epicsUInt32 vio_latches = status & 0x0000FFFFu;
+
+    WRITE32(base, Control, vio_latches); // clear VIO latches
+
+    return (status & 0xFFFF0000u) | ((~vio_latches) & 0x0000FFFFu);
 }
 
 double FCT::dcUpstream() const

@@ -28,7 +28,7 @@ public:
     virtual void lock() const OVERRIDE FINAL {}
     virtual void unlock() const OVERRIDE FINAL {}
 
-    epicsUInt16 statusRaw() const;
+    epicsUInt32 statusRaw() const;
     double dcUpstream() const;
     double dcFIFO() const;
     double dcInternal() const;
