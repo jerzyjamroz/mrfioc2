@@ -1,7 +1,7 @@
 
 record(mbbiDirect, "$(P)Link-Sts_") {
   field(ASG, "$(ASGPRIVATE=private)")
-  field(DTYP, "Obj Prop uint16")
+  field(DTYP, "Obj Prop uint32")
   field(INP, "@OBJ=$(OBJ), PROP=Status")
   field(SCAN, "1 second")
 }
@@ -60,6 +60,54 @@ record(bi, "$(P)Link$(s=:)8-Sts") {
   field(ZNAM, "Fail")
   field(ONAM, "OK")
   field(ZSV , "MAJOR")
+}
+
+record(bi, "$(P)LinkRx1-Sts") {
+  field(INP, "$(P)Link-Sts_.B10 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx2-Sts") {
+  field(INP, "$(P)Link-Sts_.B11 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx3-Sts") {
+  field(INP, "$(P)Link-Sts_.B12 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx4-Sts") {
+  field(INP, "$(P)Link-Sts_.B13 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx5-Sts") {
+  field(INP, "$(P)Link-Sts_.B14 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx6-Sts") {
+  field(INP, "$(P)Link-Sts_.B15 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx7-Sts") {
+  field(INP, "$(P)Link-Sts_.B16 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
+}
+
+record(bi, "$(P)LinkRx8-Sts") {
+  field(INP, "$(P)Link-Sts_.B17 CP MSI")
+  field(ZNAM, "Down")
+  field(ONAM, "Up")
 }
 
 record(ai, "$(P)Msrd$(s=:)Up-I") {
